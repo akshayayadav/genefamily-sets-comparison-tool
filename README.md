@@ -8,7 +8,7 @@ This tool compares genefamily sets built from two different sets of HMM database
 * PYTHON modules _re_, _sys_, _os_, _subprocess_ and _argparse_
 
 
-#### Tool options and commands
+#### Tool options
 ```
 usage: compare_family_sets.py [-h] --hmm1 SET1_HMM --hmm2 SET2_HMM --fasta
                               FASTA_FILE --n1 SET1_NAME --n2 SET2_NAME
