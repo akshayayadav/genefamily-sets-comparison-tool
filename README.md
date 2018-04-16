@@ -1,6 +1,6 @@
 ## Tool for comparing two sets of gene families 
 
-This tool compares genefamily sets built from two different sets of HMM databases to give family correspondences between the two sets.
+This tool compares genefamily sets built from two different sets of HMM databases to give family correspondences between the two sets. This tool can be used to compare two family sets built at different levels in the species tree to detect large scale duplications or deletions. This can also be used to compared families obtained from different family building tools.  
 
 #### System requirments
 * PYTHON 2.7
