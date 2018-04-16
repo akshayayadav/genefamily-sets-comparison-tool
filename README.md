@@ -34,7 +34,7 @@ Arguments:
 #### Intermediate output files
 * \<n1\>.famlist and \<n2\>.famlist contain the actual respective family sets. Format: _famid_ _sequenceid_
 * \<n1\>.hmmtblout and \<n2\>.hmmtblout contain the respective hmmscan results
-* \<n1\>.hmm.\* and \<n1\>.hmm.\* are the respective index files  
+* \<n1\>.hmm.\* and \<n1\>.hmm.\* are the respective hmm database index files  
 
 
 All the 3 input files must the present in the same working directory
