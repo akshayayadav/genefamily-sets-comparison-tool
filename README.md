@@ -28,7 +28,8 @@ Arguments:
 
 #### Output files
 
-	* The final output is written in files <n1>-<n2> and <n2>-<n1> that contain the correspondences between the set1 vs set2 and set2 vs set1 respectively.
+	* The final output is written in files <n1>-<n2> and <n2>-<n1> that contain the correspondences 
+	  between the set1 vs set2 and set2 vs set1 respectively.
 	* Format for: _<first-set-famid>_ _<second-set-famid>_ _number-sequences-common-between-two-families>_
 
 #### Intermediate output files
