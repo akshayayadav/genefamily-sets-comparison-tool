@@ -38,5 +38,5 @@ Arguments:
 * \<n1\>.hmm.\* and \<n1\>.hmm.\* are the respective hmm database index files  
 
 
-All the 3 input files must the present in the same working directory
+All the 3 input files must be present in the same working directory
 	
