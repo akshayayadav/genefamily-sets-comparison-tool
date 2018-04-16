@@ -1,10 +1,11 @@
 ## Tool for comparing two sets of gene families 
 
-This tool compares genefamily sets built from two different sets of HMM databases to give family correspondences between the two sets. This tool can be used to compare two family sets built at different levels in the species tree to detect large scale duplications or deletions. This can also be used to compared families obtained from different family building tools.  
+This tool compares genefamily sets built from two different sets of HMM databases to give family correspondences between the two sets. This tool can be used to compare two family sets built at different levels in the species tree to detect large scale duplications or deletions. This can also be used to compare families obtained from different family building tools.  
 
 #### System requirments
+* Unix based OS
 * PYTHON 2.7
-* _hmmpress_ and _hmmscan_ tools from HMMER package installed and add to PATH
+* _hmmpress_ and _hmmscan_ tools from HMMER package installed and added to PATH
 * PYTHON modules _re_, _sys_, _os_, _subprocess_ and _argparse_
 
 
@@ -28,8 +29,8 @@ Arguments:
 
 #### Output files
 
-* The final output is written in files \<n1\>-\<n2\> and \<n2\>-\<n1\> that contain the correspondences between the set1 vs set2 and set2 vs set1 respectively.
-* Format for: _\<first-set-famid\>_ _\<second-set-famid\>_ _\<number-sequences-common-between-two-families\>_
+* The final output is written in files \<n1\>-\<n2\> and \<n2\>-\<n1\> that contain the correspondences for set1 vs set2 and set2 vs set1 respectively.
+* Format: _\<first-set-famid\>_ _\<second-set-famid\>_ _\<number-sequences-common-between-two-families\>_
 
 #### Intermediate output files
 * \<n1\>.famlist and \<n2\>.famlist contain the actual respective family sets. Format: _famid_ _sequenceid_
