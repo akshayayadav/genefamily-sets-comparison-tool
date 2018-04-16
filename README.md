@@ -33,7 +33,7 @@ Arguments:
 * Format: _\<first-set-famid\>_ _\<second-set-famid\>_ _\<number-sequences-common-between-two-families\>_
 
 #### Intermediate output files
-* \<n1\>.famlist and \<n2\>.famlist contain the actual respective family sets. Format: _famid_ _sequenceid_
+* \<n1\>.famlist and \<n2\>.famlist contain the respective family sets. Format: _famid_ _sequenceid_
 * \<n1\>.hmmtblout and \<n2\>.hmmtblout contain the respective hmmscan results
 * \<n1\>.hmm.\* and \<n1\>.hmm.\* are the respective hmm database index files  
 
