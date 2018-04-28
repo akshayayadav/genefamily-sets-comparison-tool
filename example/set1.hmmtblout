@@ -131,9 +131,9 @@
 # Program:         hmmscan
 # Version:         3.1b2 (February 2015)
 # Pipeline mode:   SCAN
-# Query file:      sequences.fasta
-# Target file:     set1.hmm
-# Option settings: hmmscan --tblout set1.hmmtblout --noali set1.hmm sequences.fasta 
+# Query file:      example/sequences.fasta
+# Target file:     example/set1.hmm
+# Option settings: hmmscan --tblout example//set1.hmmtblout --noali -E 10 example/set1.hmm example/sequences.fasta 
 # Current dir:     /home/aayadav/research/genefamily-sets-comparison-tool
-# Date:            Sun Apr 15 16:38:05 2018
+# Date:            Sat Apr 28 15:06:51 2018
 # [ok]
