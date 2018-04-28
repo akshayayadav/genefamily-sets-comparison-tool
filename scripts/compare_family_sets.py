@@ -14,6 +14,8 @@ parser._optionals.title="Arguments"
 parser.add_argument('--hmm1',help="Concatenated HMM file for first set of families", required=True, dest="set1_hmm")
 parser.add_argument('--hmm2',help="Concatenated HMM file for second set of families", required=True, dest="set2_hmm")
 parser.add_argument('--fasta', help="Fasta file containing sequences that will be clustered into both set of families", required=True, dest="fasta_file")
+parser.add_argument('--e', help="hmmscan E-value cutoff", required="True", dest="hmmscan_eval_cutoff")
+parser.add_argument('--output_dir', help="Location of output directory", required="True", dest="output_dir")
 parser.add_argument('--n1', help="Name for the first set of families", required="True", dest="set1_name")
 parser.add_argument('--n2', help="Name for the second set of families", required="True", dest="set2_name")
 args = parser.parse_args()
@@ -28,9 +30,9 @@ def execute_hmmpress(famlist_hmm_fileName):
 	#print hmmprocess_out
 
 
-def execute_hmmscan(famlist_hmmset_fileName, master_fasta_fileName, family_set_name):
+def execute_hmmscan(famlist_hmmset_fileName, master_fasta_fileName, family_set_name, hmmscan_eval_cutoff="10"):
 	sys.stdout.write("***** Executing hmmscan on {0} vs {1} *******\n\n".format(master_fasta_fileName, famlist_hmmset_fileName))	
-	run_hmmscan=subprocess.Popen(["hmmscan","--tblout",family_set_name+".hmmtblout","--noali",famlist_hmmset_fileName, master_fasta_fileName],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+	run_hmmscan=subprocess.Popen(["hmmscan","--tblout",family_set_name+".hmmtblout","--noali", "-E", hmmscan_eval_cutoff, famlist_hmmset_fileName, master_fasta_fileName],stdout=subprocess.PIPE,stderr=subprocess.PIPE)
 	hmmscan_out = run_hmmscan.communicate()
 	#print hmmscan_out
 
@@ -125,28 +127,27 @@ def hmmpress(family_set1_hmm, family_set2_hmm):
 	execute_hmmpress(family_set2_hmm)
 
 ## wrapper for hmmscan
-def hmmscan(family_set1_hmm, family_set2_hmm, master_fasta_fileName):
-	execute_hmmscan(family_set1_hmm, master_fasta_fileName, family_set1_name)
-	execute_hmmscan(family_set2_hmm, master_fasta_fileName, family_set2_name)
+def hmmscan(family_set1_hmm, family_set2_hmm, master_fasta_fileName, hmmscan_eval_cutoff):
+	execute_hmmscan(family_set1_hmm, master_fasta_fileName, output_dirName+"/"+family_set1_name, hmmscan_eval_cutoff)
+	execute_hmmscan(family_set2_hmm, master_fasta_fileName, output_dirName+"/"+family_set2_name, hmmscan_eval_cutoff)
 
 ## wrapper for printing famlists
-def print_famlists(family_set1_name, family_set2_name):
-	family_set1_famlist_fileName=family_set1_name+".famlist"
-	family_set2_famlist_fileName=family_set2_name+".famlist"
+def print_famlists(family_set1_name, family_set2_name, output_dirName):
+	family_set1_famlist_fileName=output_dirName+"/"+family_set1_name+".famlist"
+	family_set2_famlist_fileName=output_dirName+"/"+family_set2_name+".famlist"
 
 
-	set1_hmmscan_tblout_fileName=family_set1_name+".hmmtblout"
-	set2_hmmscan_tblout_fileName=family_set2_name+".hmmtblout"
+	set1_hmmscan_tblout_fileName=output_dirName+"/"+family_set1_name+".hmmtblout"
+	set2_hmmscan_tblout_fileName=output_dirName+"/"+family_set2_name+".hmmtblout"
 
 	print_famlist_file(set1_hmmscan_tblout_fileName, family_set1_famlist_fileName)
 	print_famlist_file(set2_hmmscan_tblout_fileName, family_set2_famlist_fileName)
 
 ## wrapper for comparing families
-def compare_family_sets_using_famlists(family_set1_name, family_set2_name):
+def compare_family_sets_using_famlists(family_set1_name, family_set2_name, output_dirName):
 
-	family_set1_famlist_fileName=family_set1_name+".famlist"
-	family_set2_famlist_fileName=family_set2_name+".famlist"
-
+	family_set1_famlist_fileName=output_dirName+"/"+family_set1_name+".famlist"
+	family_set2_famlist_fileName=output_dirName+"/"+family_set2_name+".famlist"
 		
 	family_set1_famid_seqid_dict={}
 	family_set2_famid_seqid_dict={}
@@ -158,8 +159,8 @@ def compare_family_sets_using_famlists(family_set1_name, family_set2_name):
 	read_famlist_file(family_set2_famlist_fileName, family_set2_famid_seqid_dict, family_set2_seqid_dict)
 
 
-	compare_family_set_dicts(family_set1_famid_seqid_dict, family_set2_seqid_dict, family_set1_name+"-"+family_set2_name)
-	compare_family_set_dicts(family_set2_famid_seqid_dict, family_set1_seqid_dict, family_set2_name+"-"+family_set1_name)
+	compare_family_set_dicts(family_set1_famid_seqid_dict, family_set2_seqid_dict, output_dirName+"/"+family_set1_name+"-"+family_set2_name)
+	compare_family_set_dicts(family_set2_famid_seqid_dict, family_set1_seqid_dict, output_dirName+"/"+family_set2_name+"-"+family_set1_name)
 #############################################################################################################################################
 
 family_set1_name=args.set1_name
@@ -170,8 +171,12 @@ family_set2_hmm=args.set2_hmm
 
 master_fasta_fileName=args.fasta_file
 
+hmmscan_eval_cutoff=args.hmmscan_eval_cutoff
+
+output_dirName=args.output_dir
+
 hmmpress(family_set1_hmm, family_set2_hmm)
-hmmscan(family_set1_hmm, family_set2_hmm, master_fasta_fileName)
-print_famlists(family_set1_name, family_set2_name)
-compare_family_sets_using_famlists(family_set1_name, family_set2_name)
+hmmscan(family_set1_hmm, family_set2_hmm, master_fasta_fileName, hmmscan_eval_cutoff)
+print_famlists(family_set1_name, family_set2_name, output_dirName)
+compare_family_sets_using_famlists(family_set1_name, family_set2_name, output_dirName)
 
