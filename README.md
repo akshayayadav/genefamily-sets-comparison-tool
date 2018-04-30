@@ -12,18 +12,26 @@ This tool compares genefamily sets built from two different sets of HMM database
 #### Tool options
 ```
 usage: compare_family_sets.py [-h] --hmm1 SET1_HMM --hmm2 SET2_HMM --fasta
-                              FASTA_FILE --n1 SET1_NAME --n2 SET2_NAME
+                              FASTA_FILE [--e HMMSCAN_EVAL_CUTOFF]
+                              --output_dir OUTPUT_DIR --n1 SET1_NAME --n2
+                              SET2_NAME [--t NUM_THREADS]
 
 Tool for comparing two family sets through family HMM sets
 
 Arguments:
-  -h, --help          show this help message and exit
-  --hmm1 SET1_HMM     Concatenated HMM file for first set of families
-  --hmm2 SET2_HMM     Concatenated HMM file for second set of families
-  --fasta FASTA_FILE  Fasta file containing sequences that will be clustered
-                      into both set of families
-  --n1 SET1_NAME      Name for the first set of families
-  --n2 SET2_NAME      Name for the second set of families
+  -h, --help            show this help message and exit
+  --hmm1 SET1_HMM       Concatenated HMM file for first set of families
+  --hmm2 SET2_HMM       Concatenated HMM file for second set of families
+  --fasta FASTA_FILE    Fasta file containing sequences that will be clustered
+                        into both set of families
+  --e HMMSCAN_EVAL_CUTOFF
+                        hmmscan E-value cutoff
+  --output_dir OUTPUT_DIR
+                        Location of output directory
+  --n1 SET1_NAME        Name for the first set of families
+  --n2 SET2_NAME        Name for the second set of families
+  --t NUM_THREADS       Number of threads for hmmscan
+
 ```
 
 
@@ -37,6 +45,3 @@ Arguments:
 * \<n1\>.hmmtblout and \<n2\>.hmmtblout contain the respective hmmscan results
 * \<n1\>.hmm.\* and \<n1\>.hmm.\* are the respective hmm database index files  
 
-
-All the 3 input files must be present in the same working directory
-	
